@@ -255,7 +255,6 @@ end
 -- item
 function LinkTypeFuncs:item(link,linkType,id)
 	local _, _, itemRarity, itemLevel, _, _, _, itemStackCount, _, itemTexture, itemSellPrice = GetItemInfo(link);
-	itemLevel = LibItemString:GetTrueItemLevel(link);
 
 	-- Icon
 	if (self.SetIconTextureAndText) and (not cfg.if_smartIcons or SmartIconEvaluation(self,linkType)) then
@@ -271,8 +270,10 @@ function LinkTypeFuncs:item(link,linkType,id)
   if itemSellPrice ~= nil then
     if itemSellPrice == 0 then
       -- do nothing
-    else
-      formattedValue = GetCoinTextureString(itemSellPrice);
+		else
+			rawValue = itemSellPrice;
+			formattedValue = GetCoinTextureString(itemSellPrice);
+			-- DEFAULT_CHAT_FRAME:AddMessage(link);
 
       -- self:AddLine(format("Vendor Sell: %d",formattedValue),unpack(cfg.if_infoColor));
       self:AddLine("Vendor Sell: " .. formattedValue,unpack(cfg.if_infoColor));

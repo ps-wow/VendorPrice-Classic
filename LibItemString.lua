@@ -231,12 +231,6 @@ function LIS:GetTooltipItemLevel(itemLink)
 	end
 end
 
--- Returns the true itemLevel for upgraded items, even when GetItemInfo() says otherwise
--- This method replaces the old GetUpgradedItemLevelFromItemLink() function
-function LIS:GetTrueItemLevel(itemLink)
-	return self:GetTooltipItemLevel(itemLink);
-end
-
 -- GLOBAL function staying compatible with the old "GetUpgradedItemLevel.lua" unit
 -- OBSOLETE: Use LibItemString:GetTrueItemLevel(itemLink) instead
 function GetUpgradedItemLevelFromItemLink(itemLink)
