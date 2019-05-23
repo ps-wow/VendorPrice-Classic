@@ -175,17 +175,6 @@ local function OnTooltipSetItem(self,...)
 	end
 end
 
--- OnTooltipSetSpell
-local function OnTooltipSetSpell(self,...)
-	if (cfg.if_enable) and (not tipDataAdded[self]) then
-		local _, id = self:GetSpell();	-- [18.07.19] 8.0/BfA: "dropped second parameter (nameSubtext)"
-		if (id) then
-			tipDataAdded[self] = "spell";
-			LinkTypeFuncs.spell(self,nil,"spell",id);
-		end
-	end
-end
-
 -- OnTooltipCleared
 local function OnTooltipCleared(self)
 	tipDataAdded[self] = nil;
@@ -271,12 +260,36 @@ function LinkTypeFuncs:item(link,linkType,id)
     if itemSellPrice == 0 then
       -- do nothing
 		else
-			rawValue = itemSellPrice;
-			formattedValue = GetCoinTextureString(itemSellPrice);
+			-- rawValue = itemSellPrice;
+			-- formattedValue = GetCoinTextureString(itemSellPrice);
+			GetItemVendorPriceTooltip(self,link);
 			-- DEFAULT_CHAT_FRAME:AddMessage(link);
 
       -- self:AddLine(format("Vendor Sell: %d",formattedValue),unpack(cfg.if_infoColor));
-      self:AddLine("Vendor Sell: " .. formattedValue,unpack(cfg.if_infoColor));
+      --self:AddLine("Vendor Sell: " .. formattedValue,unpack(cfg.if_infoColor));
     end
   end
+end
+
+function GetItemVendorPriceTooltip(self,link)
+	local _, _, itemRarity, itemLevel, _, _, _, itemStackCount, _, itemTexture, itemSellPrice = GetItemInfo(link);
+
+	if itemSellPrice ~= nil then
+		if itemSellPrice == 0 then
+			-- do nothing
+		else
+			count = GetItemCount(link);
+			priceEach = GetCoinTextureString(itemSellPrice);
+			priceAll = GetCoinTextureString(itemSellPrice * count);
+
+			-- Add price (total)
+			self:AddLine("Vendor Sell (All): " .. priceAll,unpack(cfg.if_infoColor));
+
+			-- Add price each
+			
+			if (count > 1) then
+				self:AddLine("Vendor Sell (Each): " .. priceEach,unpack(cfg.if_infoColor));
+			end
+		end
+	end
 end
