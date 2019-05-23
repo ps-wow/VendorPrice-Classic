@@ -1,7 +1,7 @@
 ## Interface: 80100
 ## Version: 19.03.31
-## Title: TipTacVendorPrice
+## Title: VendorPrice-Classic
 ## Author: PrivateSniper
 ## Notes: Adds Vendor Price to Tooltips
 ## OptionalDeps: TipTac
-ttVendorPrice.lua
+main.lua
