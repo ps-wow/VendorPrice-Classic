@@ -4,5 +4,4 @@
 ## Author: PrivateSniper
 ## Notes: Adds Vendor Price to Tooltips
 ## OptionalDeps: TipTac
-LibItemString.lua
 ttVendorPrice.lua
